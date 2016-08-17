@@ -1,0 +1,14 @@
+var text = "Introduction, in PowerPoint and in PDF. Required readings: Chapter 1 of the textbook (both editions), by Monday August 22.\nDatabase Models, in PowerPoint and in PDF. Required readings: Chapter 2 of the textbook (or Section 3.1 first edition), by Monday August 22.\nE/R Diagrams (PowerPoint, GIFs, PDF). Required readings: Sections 4.1-4.4 of the textbook (or Chapter 2 first edition), by Wednesday August 24.";
+
+var regex = /(.+?)\s*[,(].*Required readings: (.*), by (.*)./g;
+var todos = ics();
+var arr;
+do {
+    arr = regex.exec(text);
+    if (!arr || arr.length != 4) {
+        continue;
+    }
+    todos.addTodo(arr[1] + " : " + arr[2], arr[3]);
+} while (arr);
+
+todos.download('csc440_readinglist');
